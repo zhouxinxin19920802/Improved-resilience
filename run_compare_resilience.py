@@ -111,7 +111,7 @@ if __name__ == '__main__':
             # 注入故障
             failure_temp = [] 
             if i > 200:
-                failure_temp = [4,5,6]
+                failure_temp = [3,4,5]
             actions = maddpg_agents.choose_action(obs)
             obs1_,  reward_temp, done = env_.step(actions=actions,failure_list=failure_temp)
         

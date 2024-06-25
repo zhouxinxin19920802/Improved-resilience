@@ -141,7 +141,7 @@ def get_n_rand(n, p):
 # 角度旋转
 def rotation_matrix_about(v, angle):
     x = v[1] * math.sin(angle) + v[0] * math.cos(angle)
-    y = v[1] * math.cos(angle) + v[0] * math.sin(angle)
+    y = v[1] * math.cos(angle) - v[0] * math.sin(angle)
     return [x, y]
 
 
@@ -483,7 +483,7 @@ class Couzin():
                                 # 吸引区域位置向量累计
                                 da = da + r_normalized
                                 # 吸引区速度向量累计
-                                dv = dv + neighbor.vel / norm(neighbor.vel) + agent.vel
+                                dv = dv + neighbor.vel / norm(neighbor.vel)
                 if norm(dr) != 0:
                     # 排斥区域
                     # if agent.is_leader:
@@ -518,21 +518,20 @@ class Couzin():
                     # logging.info("angle_between:{}".format(angle_between))
                     if angle_between >= self.theta_dot_max * self.dt:
                         # rotation_matrix_about 旋转后，返回的是向量
-                        rot = rotation_matrix_about(d, self.theta_dot_max * self.dt)
+                        rot = rotation_matrix_about(agent.vel, self.theta_dot_max * self.dt)
 
                         vel0 = rot
 
-                        rot1 = rotation_matrix_about(d, -self.theta_dot_max * self.dt)
+                        rot1 = rotation_matrix_about(agent.vel, -self.theta_dot_max * self.dt)
 
                         vel1 = rot1
 
-                        if cal_angle_of_vector(vel0, d) < cal_angle_of_vector(vel1, d):
+                        if cal_angle_of_vector(vel0, d) <= cal_angle_of_vector(vel1, d):
                             agent.vel = vel0 / norm(vel0) * self.constant_speed
                         else:
                             agent.vel = vel1 / norm(vel1) * self.constant_speed
                     else:
                         agent.vel = d * self.constant_speed
-
             # 将邻居信息更新在obs_single中
             # 将单个个体的观察空间长度固定
             # 修改的地方在于加上本智能体的信息，在考虑与周边个体的关系时，同时需要本个体的位置和速度信息
