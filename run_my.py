@@ -39,7 +39,7 @@ def run():
     P = config_data["P"]
 
     env_ = env.Couzin(N,P,Is_visual= display)
-    env_.attract_range = 60
+    env_.attract_range = 30
     obs = env_.reset()
     n_agents = env_.n
 

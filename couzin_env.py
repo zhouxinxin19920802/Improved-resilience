@@ -158,8 +158,8 @@ class Agent:
         self.id = agent_id
         # 位置
         self.pos = np.array([0, 0])
-        self.pos[0] = np.random.uniform(70, 90)
-        self.pos[1] = np.random.uniform(70, 90)
+        self.pos[0] = np.random.uniform(20, 40)
+        self.pos[1] = np.random.uniform(20, 40)
         # 速度
         self.vel = np.random.uniform(-5, 5, 2)
 
