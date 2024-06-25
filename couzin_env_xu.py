@@ -152,7 +152,7 @@ def get_n_rand(n, p):
 def rotation_matrix_about(v, angle):
     x = v[1] * math.sin(angle) + v[0] * math.cos(angle)
     y = v[1] * math.cos(angle) - v[0] * math.sin(angle)
-    return [x, y]
+    return np.array([x, y])
 
 
 # 定义工具函数，计算两个智能体之间的距离
@@ -460,9 +460,7 @@ class Couzin():
                     th1 = cal_angle_of_vector1(agent.vel, neighbor.vel)
                     angle = (-1/4) * math.pi * th1 + math.pi
                     
-                    # 原始的couzin模型
-                    angle = agent.field_of_view
-                    
+
                     
                     logging.info("angle:{}".format(angle))
                     if agent.id != neighbor.id and cal_distance(agent,
@@ -938,7 +936,7 @@ if __name__ == '__main__':
     N = config_data["Num"]
     P = config_data["P"]
 
-    couzin = Couzin(N,P,False)
+    couzin = Couzin(N,P,True)
     couzin.attract_range = 60
 
     leaders = couzin.leader_list
