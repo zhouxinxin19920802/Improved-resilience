@@ -450,7 +450,7 @@ class Couzin():
 
                     if agent.id != neighbor.id and cal_distance(agent,
                                                                 neighbor) < self.attract_range and cal_angle_of_vector(
-                        visual_vector, agent.vel) < agent.field_of_view / 2 and math.sqrt(
+                        visual_vector, agent.vel) <= agent.field_of_view / 2 and math.sqrt(
                     pow(agent.pos[0] - self.target_x, 2) + pow(agent.pos[1] - self.target_y, 2)) > self.target_radius:
 
                         neighbor_count = neighbor_count + 1
