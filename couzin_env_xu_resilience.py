@@ -1115,6 +1115,10 @@ def resilience_cal_display():
     # logging.info("y_r:{},y_min:{}".format(y_r, y_min))
 
     if y_r > y_min:
+        if y_r < 0:
+            y_r = 0
+        if sigma < 0:
+            sigma = 0 
         resilience_v = rho * sigma * (delta + zeta) * (delta_l ** (len(data_resilience) / B))
         logging.info("r:{}".format(resilience_v))
     else:
