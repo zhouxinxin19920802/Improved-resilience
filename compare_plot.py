@@ -79,8 +79,8 @@ print("space_xu","space_r",space_complexity_xu,space_complexity_r )
 time_xu = "time_complexity.txt"
 time_r = "time_complexity_r.txt"
 
-time_complexity_xu = data_average(space_xu)
-time_complexity_r = data_average(space_r)
+time_complexity_xu = data_average(time_xu)
+time_complexity_r = data_average(time_r)
 
 print("time_xu","time_r",time_complexity_xu,time_complexity_r )
 
@@ -94,14 +94,14 @@ destination_num_r = data_average(destination_r)
 
 print("destination_num_xu","destination_num_r",destination_num_xu,destination_num_r)
 
-# 领导者的到达数
-destination_xu1 = "destination_nums_xu_leader.txt"
-destination_r1 = "destination_nums1.txt"
+# # 领导者的到达数
+# destination_xu1 = "destination_nums_xu_leader.txt"
+# destination_r1 = "destination_nums1.txt"
 
-destination_num_xu1 = data_average(destination_xu1)
-destination_num_r1 = data_average(destination_r1)
+# destination_num_xu1 = data_average(destination_xu1)
+# destination_num_r1 = data_average(destination_r1)
 
-print("destination_num_xu1","destination_num_r1",destination_num_xu1,destination_num_r1)
+# print("destination_num_xu1","destination_num_r1",destination_num_xu1,destination_num_r1)
 
 
 

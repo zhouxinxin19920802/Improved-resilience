@@ -1211,8 +1211,8 @@ if __name__ == '__main__':
     leader_list = [1,2]
 
     print("N:",N,"P:",P)
-    couzin = Couzin(N,P,False)
-    couzin.attract_range = 60
+    couzin = Couzin(N,P,True)
+    couzin.attract_range = 30
     couzin.leader_list = leader_list
     print("leader_list",couzin.leader_list)
 

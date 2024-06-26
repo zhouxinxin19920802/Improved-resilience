@@ -737,7 +737,7 @@ class Couzin():
                 else:
                     reward_temp.append(current_reward* (num - 1))  
             else:
-                if num - 1 == 0:
+                if num - 1 <=0:
                     reward_temp.append(-1)
                 else:
                     reward_temp.append(num - 1)

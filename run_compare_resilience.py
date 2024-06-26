@@ -71,7 +71,7 @@ if __name__ == '__main__':
     N = config_data["Num"]
     P = config_data["P"]
 
-    display = False
+    display = True
     env_ = env.Couzin(N,P,Is_visual= display)
 
     # 进行评价，运行2000次结束

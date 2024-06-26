@@ -936,7 +936,7 @@ if __name__ == '__main__':
     N = config_data["Num"]
     P = config_data["P"]
 
-    couzin = Couzin(N,P,True)
+    couzin = Couzin(N,P,False)
     couzin.attract_range = 30
 
     leaders = couzin.leader_list
