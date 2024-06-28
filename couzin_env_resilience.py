@@ -899,17 +899,17 @@ class Couzin():
                     logging.warning("d:{}".format(d))
                     angle_between_unusual = cal_angle_of_vector(d, agent.vel)
                     # logging.warning("angle_between:{}".format(angle_between))
-                    if angle_between_unusual >= self.theta_dot_max * self.dt:
+                    if angle_between >= self.theta_dot_max * self.dt:
                         # rotation_matrix_about 旋转后，返回的是向量
-                        rot = rotation_matrix_about(d, self.theta_dot_max * self.dt)
+                        rot = rotation_matrix_about(agent.vel, self.theta_dot_max * self.dt)
 
                         vel0 = rot
 
-                        rot1 = rotation_matrix_about(d, -self.theta_dot_max * self.dt)
+                        rot1 = rotation_matrix_about(agent.vel, -self.theta_dot_max * self.dt)
 
                         vel1 = rot1
 
-                        if cal_angle_of_vector(vel0, d) < cal_angle_of_vector(vel1, d):
+                        if cal_angle_of_vector(vel0, d) <= cal_angle_of_vector(vel1, d):
                             agent.vel = vel0 / norm(vel0) * self.constant_speed
                         else:
                             agent.vel = vel1 / norm(vel1) * self.constant_speed
