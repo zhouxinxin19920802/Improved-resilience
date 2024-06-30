@@ -510,8 +510,6 @@ class Couzin():
                     else:
                         d_new = (da + dv) / norm(da + dv)
                         d = d_new
-                else:
-                        d = agent.vel / norm(agent.vel)
 
                 if norm(d) != 0:
                     angle_between = cal_angle_of_vector(d, agent.vel)
