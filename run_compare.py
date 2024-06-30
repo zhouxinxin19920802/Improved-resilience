@@ -57,7 +57,7 @@ P = config_data["P"]
 
 display = True
 env_ = env.Couzin(N,P,Is_visual= display)
-
+env_.attract_range = 30
 # 进行评价，运行2000次结束
 env_.evaluate = True
 
