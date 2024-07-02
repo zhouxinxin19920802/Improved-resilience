@@ -168,8 +168,8 @@ class Agent:
         self.id = agent_id
         # 位置
         self.pos = np.array([0, 0])
-        self.pos[0] = np.random.uniform(20, 40)
-        self.pos[1] = np.random.uniform(20, 40)
+        self.pos[0] = np.random.uniform(40, 60)
+        self.pos[1] = np.random.uniform(40, 60)
         # 速度
         self.vel = np.random.uniform(-5, 5, 2)
 
@@ -551,7 +551,9 @@ class Couzin():
                             agent.vel = vel1 / norm(vel1) * self.constant_speed
                     else:
                         agent.vel = d * self.constant_speed
-
+                else:
+                    if i in self.leader_list:
+                        agent.vel = agent.g * self.constant_speed
             # 将邻居信息更新在obs_single中
             # 将单个个体的观察空间长度固定
             # 修改的地方在于加上本智能体的信息，在考虑与周边个体的关系时，同时需要本个体的位置和速度信息

@@ -101,6 +101,16 @@ def cal_time_complexity(swarm, old_swarm):
         time_complexity = time_complexity + cal_angle_of_vector1([agent_i.vel[0], agent_i.vel[1]],[agent_i_old.vel[0], agent_i_old.vel[1]])
     return time_complexity
 
+# 时间平滑性 
+def cal_time_smooth(swarm, old_swarm):
+    time_smooth = []
+    for i in range(len(swarm)):
+        # 计算两个智能体之间的速度方向的夹角
+        agent_i = swarm[i]
+        agent_i_old = old_swarm[i]
+        velecity_smooth_value= cal_angle_of_vector([agent_i.vel[0], agent_i.vel[1]],[agent_i_old.vel[0], agent_i_old.vel[1]])
+        time_smooth.append(-velecity_smooth_value)
+    return time_smooth
 
 
 # 计算两个方向的夹角
@@ -158,8 +168,8 @@ class Agent:
         self.id = agent_id
         # 位置
         self.pos = np.array([0, 0])
-        self.pos[0] = np.random.uniform(20, 40)
-        self.pos[1] = np.random.uniform(20, 40)
+        self.pos[0] = np.random.uniform(40, 60)
+        self.pos[1] = np.random.uniform(40, 60)
         # 速度
         self.vel = np.random.uniform(-5, 5, 2)
 
@@ -530,6 +540,9 @@ class Couzin():
                             agent.vel = vel1 / norm(vel1) * self.constant_speed
                     else:
                         agent.vel = d * self.constant_speed
+                else:
+                    if i in self.leader_list:
+                        agent.vel = agent.g * self.constant_speed
             # 将邻居信息更新在obs_single中
             # 将单个个体的观察空间长度固定
             # 修改的地方在于加上本智能体的信息，在考虑与周边个体的关系时，同时需要本个体的位置和速度信息
@@ -669,9 +682,12 @@ class Couzin():
 
         self.total_steps = self.total_steps + 1
 
+        time_smooth = [0] * self.n
+        
         # 计算时间复杂度
         if self.total_steps > 1:
             self.time_complexity  = cal_time_complexity(self.swarm, self.old_swarm) + self.time_complexity
+            time_smooth = cal_time_smooth(self.swarm, self.old_swarm)
         # 更新old_swarm
         self.old_swarm = copy.deepcopy(self.swarm)
 
@@ -740,15 +756,33 @@ class Couzin():
                 else:
                     reward_temp.append(num - 1)
 
-  
-        # 奖励函数2 - 与集群中心距离越近，奖励越大，越远奖励越小
-        center_x = 0
-        center_y = 0
-        for i in range(len(self.swarm)):
-            center_x = self.swarm[i].pos[0] + center_x
-            center_y = self.swarm[i].pos[1] + center_y
-        center_x = center_x / len(self.swarm)
-        center_y = center_y / len(self.swarm)
+
+            
+            # target_reward = 0
+            # neibour_reward = 0
+            # smooth_reward = 0
+            
+            
+            # # 奖励
+            # if i in self.leader_list:
+            #     correction_factor = 0.1
+            #     current_reward = 20
+            #     if distance < self.target_radius:
+            #         target_reward = current_reward* (num - 1)
+            #     if distance > self.target_radius:
+            #         target_reward = -distance * correction_factor
+            # smooth_reward = time_smooth[i] * 0.5
+            
+            # if num-1<=0:
+            #     neibour_reward = -1
+            # else:
+            #     neibour_reward = num - 1
+            
+            # # 运行的平滑程度             
+            # reward_temp.append(target_reward + neibour_reward + smooth_reward)
+
+
+
         if(all(done)==True and self.space_time_flag == True) or (self.space_time_flag == True and count_fn > 0):
             space_complexity = self.space_complexity / self.total_steps / (self.n * (self.n - 1) /2)
             time_comlexity = self.time_complexity / (self.total_steps - 1) / self.n
