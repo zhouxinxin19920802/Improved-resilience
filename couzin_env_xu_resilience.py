@@ -559,7 +559,7 @@ class Couzin():
                             agent.vel = d * self.constant_speed
                     else:
                         if i in self.leader_list:
-                            agent.vel = agent.g * self.constant_speed                        
+                            agent.vel = agent.g * self.constant_speed
 
                     # 将邻居信息更新在obs_single中
                     # 将单个个体的观察空间长度固定
@@ -583,7 +583,7 @@ class Couzin():
         total_velocity = 0
 
         
-        unusual_flag = 1
+        unusual_flag = 0
         
         # 更新个体的位置
         for agent in self.swarm:
@@ -608,7 +608,7 @@ class Couzin():
                     
                     angle_between_unusual = cal_angle_of_vector(d, agent.vel)
                         # logging.info("angle_between:{}".format(angle_between))
-                    if angle_between >= self.theta_dot_max * self.dt:
+                    if angle_between_unusual >= self.theta_dot_max * self.dt:
                         # rotation_matrix_about 旋转后，返回的是向量
                         rot = rotation_matrix_about(agent.vel, self.theta_dot_max * self.dt)
 
@@ -1213,7 +1213,7 @@ if __name__ == '__main__':
     leader_list = [1,2]
 
     print("N:",N,"P:",P)
-    couzin = Couzin(N,P,True)
+    couzin = Couzin(N,P,False)
     couzin.attract_range = 30
     couzin.leader_list = leader_list
     print("leader_list",couzin.leader_list)
@@ -1239,7 +1239,7 @@ if __name__ == '__main__':
             
             # 当i=200时注入故障，当i=200，个体不更新位置
             # 生成故障个体,   
-              
+
             failure_temp = [] 
             if i >=200:
                 failure_temp = failure_list

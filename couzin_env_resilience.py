@@ -801,7 +801,7 @@ class Couzin():
                     if item2 !=0:
                         num = num + 1
                         break
-            distance = math.sqrt(pow(agent.pos[0] - self.target_x, 2) + pow(agent.pos[1] - self.target_y, 2))
+            distance = math.sqrt(pow(self.swarm[i].pos[0] - self.target_x, 2) + pow(self.swarm[i].pos[1] - self.target_y, 2))
             if distance < self.target_radius:
                 current_reward = 20
                 if num - 1 == 0:
@@ -842,7 +842,7 @@ class Couzin():
         # 韧性计算
         total_velocity = 0
         
-        unusual_flag = 1
+        unusual_flag = 0
         for agent in self.swarm:
             
             # 不动
@@ -901,7 +901,7 @@ class Couzin():
                     logging.warning("d:{}".format(d))
                     angle_between_unusual = cal_angle_of_vector(d, agent.vel)
                     # logging.warning("angle_between:{}".format(angle_between))
-                    if angle_between >= self.theta_dot_max * self.dt:
+                    if angle_between_unusual >= self.theta_dot_max * self.dt:
                         # rotation_matrix_about 旋转后，返回的是向量
                         rot = rotation_matrix_about(agent.vel, self.theta_dot_max * self.dt)
 
