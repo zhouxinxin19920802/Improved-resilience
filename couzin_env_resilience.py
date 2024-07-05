@@ -160,8 +160,8 @@ class Agent:
         self.id = agent_id
         # 位置
         self.pos = np.array([0, 0])
-        self.pos[0] = np.random.uniform(20, 40)
-        self.pos[1] = np.random.uniform(20, 40)
+        self.pos[0] = np.random.uniform(40,60)
+        self.pos[1] = np.random.uniform(40,60)
         # 速度
         self.vel = np.random.uniform(-5, 5, 2)
 
@@ -287,7 +287,7 @@ class Couzin():
         # 是否用来评估
         self.evaluate = False
 
-              # 存储空间复杂度
+        # 存储空间复杂度
         self.space_complexity = 0
 
         # 空间-时间复杂度
@@ -865,11 +865,11 @@ class Couzin():
                         # logging.info("angle_between:{}".format(angle_between))
                     if angle_between_unusual >= self.theta_dot_max * self.dt:
                         # rotation_matrix_about 旋转后，返回的是向量
-                        rot = rotation_matrix_about(d, self.theta_dot_max * self.dt)
+                        rot = rotation_matrix_about(agent.vel, self.theta_dot_max * self.dt)
 
                         vel0 = rot
 
-                        rot1 = rotation_matrix_about(d, -self.theta_dot_max * self.dt)
+                        rot1 = rotation_matrix_about(agent.vel, -self.theta_dot_max * self.dt)
 
                         vel1 = rot1
 
