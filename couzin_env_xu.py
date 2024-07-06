@@ -530,7 +530,8 @@ class Couzin():
                         d_new = (da + dv) / norm(da + dv)
                         d = d_new
                 else:
-                        d = agent.vel / norm(agent.vel)
+                    if i in self.leader_list:
+                        agent.vel = agent.g * self.constant_speed
 
                 if norm(d) != 0:
                     angle_between = cal_angle_of_vector(d, agent.vel)
@@ -551,9 +552,7 @@ class Couzin():
                             agent.vel = vel1 / norm(vel1) * self.constant_speed
                     else:
                         agent.vel = d * self.constant_speed
-                else:
-                    if i in self.leader_list:
-                        agent.vel = agent.g * self.constant_speed
+
             # 将邻居信息更新在obs_single中
             # 将单个个体的观察空间长度固定
             # 修改的地方在于加上本智能体的信息，在考虑与周边个体的关系时，同时需要本个体的位置和速度信息

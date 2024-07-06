@@ -522,21 +522,23 @@ class Couzin():
                             neiX = 0
                             neiY = 0
                             K = len(agent.neibour_set_attract)
-                            for i in range(len(agent.neibour_set_attract)):
-                                neiX = agent.neibour_set_attract[i].pos[0]
-                                neiY = agent.neibour_set_attract[i].pos[1]
+                            for k in range(len(agent.neibour_set_attract)):
+                                neiX = agent.neibour_set_attract[k].pos[0]
+                                neiY = agent.neibour_set_attract[k].pos[1]
                             nei_d = math.sqrt(math.pow((agent.pos[0] - neiX / K), 2) + math.pow((agent.pos[1] - neiY / K), 2))
                             agent.w_p =  math.exp((couzin.n / 25) * (-nei_d / couzin.attract_range))
                             
                             # 使用一个固定的领导者影响权重
                             # agent.w_p = 0.3
+                            # print(agent.w_p)
                             d_new = (da + dv) / norm(da + dv)
                             d = (d_new + agent.w_p * agent.g) / norm(d_new + agent.w_p * agent.g)
                         else:
                             d_new = (da + dv) / norm(da + dv)
                             d = d_new
                     else:
-                            d = agent.vel / norm(agent.vel)
+                        if i in self.leader_list:
+                            agent.vel = agent.g * self.constant_speed
 
                     if norm(d) != 0:
                         angle_between = cal_angle_of_vector(d, agent.vel)
@@ -557,9 +559,6 @@ class Couzin():
                                 agent.vel = vel1 / norm(vel1) * self.constant_speed
                         else:
                             agent.vel = d * self.constant_speed
-                    else:
-                        if i in self.leader_list:
-                            agent.vel = agent.g * self.constant_speed
 
                     # 将邻居信息更新在obs_single中
                     # 将单个个体的观察空间长度固定
@@ -583,7 +582,7 @@ class Couzin():
         total_velocity = 0
 
         
-        unusual_flag = 0
+        unusual_flag = 1
         
         # 更新个体的位置
         for agent in self.swarm:
@@ -1119,10 +1118,15 @@ def resilience_cal_display():
     if y_r > y_min:
         if y_r < 0:
             y_r = 0
-        if sigma < 0:
+        if rho < 0:
+            rho = 0 
+        if sigma < 0 or sigma>=1:
             sigma = 0 
+        if delta < 0:
+            delta = 0
         resilience_v = rho * sigma * (delta + zeta) * (delta_l ** (len(data_resilience) / B))
-        logging.info("r:{}".format(resilience_v))
+        value = delta_l ** (len(data_resilience) / B)
+        logging.warning("r:{},{},{},{},{}".format(rho,sigma,delta + zeta,value,resilience_v))
     else:
         resilience_v = 0
 
