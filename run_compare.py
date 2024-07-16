@@ -55,7 +55,7 @@ with open('config.json', 'r') as file:
 N = config_data["Num"]
 P = config_data["P"]
 
-display = True
+display = False
 env_ = env.Couzin(N,P,Is_visual= display)
 env_.attract_range = 30
 # 进行评价，运行2000次结束
@@ -92,6 +92,7 @@ for ngame in range(50):
     for i in range(2000):
         actions = maddpg_agents.choose_action(obs)
         obs1_,  reward_temp, done = env_.step(actions=actions)
+        obs = obs1_
         # print(ngame,i)
     with open("connect_value_r.txt","a+") as space:
             space.write("\n") 

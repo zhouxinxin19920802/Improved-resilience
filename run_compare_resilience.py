@@ -115,7 +115,7 @@ if __name__ == '__main__':
                 failure_temp = [3,4,5]
             actions = maddpg_agents.choose_action(obs)
             obs1_,  reward_temp, done = env_.step(actions=actions,failure_list=failure_temp)
-        
+            obs = obs1_
         
         resilience_v = env.resilience_cal_display()
         with open("connect_value_r1.txt","a+") as space:
